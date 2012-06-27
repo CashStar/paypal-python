@@ -237,6 +237,19 @@ class PayPalInterface(object):
         """
         kwargs.update(self._sanitize_locals(locals()))
         return self._call('DoCapture', **kwargs)
+        
+    def refund_transaction(self, transactionid, amt, refundtype='Full', **kwargs):
+        """Shortcut for the RefundTransaction  method.
+    
+        Use the TRANSACTIONID from DoAuthorization, DoDirectPayment or
+        DoExpressCheckoutPayment for the ``authorizationid``.
+    
+        The `amt` should be the same as the authorized transaction.
+        """
+        kwargs.update(locals())
+        del kwargs['self']
+        return self._call('RefundTransaction', **kwargs)
+
 
     def do_direct_payment(self, paymentaction="Sale", **kwargs):
         """Shortcut for the DoDirectPayment method.
