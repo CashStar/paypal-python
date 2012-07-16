@@ -323,6 +323,17 @@ class PayPalInterface(object):
         """
         return self._call('GetTransactionDetails', **kwargs)
 
+    def transaction_search(self, startdate, **kwargs):
+        """Shortcut for the TransactionSearch  method.
+
+        Required Kwargs
+        ---------------
+        STARTDATE
+        """
+        return self._call('TransactionSearch', startdate=startdate, 
+            **kwargs)
+
+
     def set_express_checkout(self, **kwargs):
         """Start an Express checkout.
 
