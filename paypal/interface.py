@@ -129,10 +129,12 @@ class PayPalInterface(object):
         logger.debug('PayPal NVP API Endpoint: %s'% self.config.API_ENDPOINT)
     
         if not response.success:
-            logger.error('A PayPal API error was encountered.')
-            logger.error('PayPal NVP Query Key/Vals:\n%s' % pformat(url_values))
-            logger.error('PayPal NVP Query Response')
-            logger.error(response)
+            error_format = (
+                'A Paypal API error was encountered.\n'
+                'Paypal NVP Query Key/Vals:\n{query}\n'
+                'Paypal NVP Query Response:\n{response}\n'
+            )
+            logger.warning(error_format.format(query=pformat(url_values), response=response))
             raise PayPalAPIResponseError(response)
 
         return response
